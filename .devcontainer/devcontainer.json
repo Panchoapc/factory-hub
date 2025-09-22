@@ -1,0 +1,18 @@
+{
+  "name": "Factory Hub Dev Container",
+  "build": {
+    "dockerfile": "../backend/Dockerfile" // This will be replace with a compose file
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "batisteo.vscode-django",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "forwardPorts": [
+    8000
+  ]
+}
