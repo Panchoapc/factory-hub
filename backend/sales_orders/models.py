@@ -5,10 +5,10 @@ from django.core.exceptions import ValidationError
 class Product(models.Model):
     product_type = models.CharField(max_length=100)
     brand = models.CharField(max_length=100)
-    price = models.PositiveIntegerField(max_length=10)
+    price = models.PositiveIntegerField()
     units_per_package = models.IntegerField()
     packages_per_box = models.IntegerField()
-    promotional_discount = models.PositiveIntegerField(default=0, max_length=3)
+    promotional_discount = models.PositiveIntegerField(default=0)
 
     @property
     def name(self):
@@ -66,8 +66,8 @@ class SalesOrder(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     order_date = models.DateField(auto_now_add=True)
     delivery_date = models.DateField()
-    total_amount = models.PositiveIntegerField(max_length=10)
-    order_discount = models.PositiveIntegerField(default=0, max_length=3)
+    total_amount = models.PositiveIntegerField()
+    order_discount = models.PositiveIntegerField(default=0)
     status = models.CharField(choices=STATUS_CHOICES,
                               default=STATUS_CHOICES[0][0])
 
@@ -79,6 +79,6 @@ class SalesOrderItem(models.Model):
     sales_order = models.ForeignKey(SalesOrder, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
-    unit_price = models.PositiveIntegerField(max_length=10)
-    unit_discount = models.PositiveIntegerField(default=0, max_length=3)
-    total_price = models.PositiveIntegerField(max_length=10)
+    unit_price = models.PositiveIntegerField()
+    unit_discount = models.PositiveIntegerField(default=0)
+    total_price = models.PositiveIntegerField()
