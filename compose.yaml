@@ -1,0 +1,30 @@
+services:
+  postgres-db:
+    image: "postgres:16"
+    environment:
+      POSTGRES_DB: your_db_name
+      POSTGRES_USER: your_db_user
+      POSTGRES_PASSWORD: your_db_password
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" # Optional: Expose port for local access
+
+  backend-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    working_dir: /workspace/backend
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    environment:
+      DATABASE_URL: postgresql://your_db_user:your_db_password@postgres-db:5432/your_db_name
+    volumes:
+      - .:/workspace
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres-db:
+        condition: service_started
+
+volumes:
+  pg_data:

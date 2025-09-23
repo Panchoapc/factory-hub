@@ -1,18 +1,18 @@
 {
   "name": "Factory Hub Dev Container",
-  "build": {
-    "dockerfile": "../backend/Dockerfile" // This will be replace with a compose file
-  },
+  "dockerComposeFile": "../compose.yaml",
+  "service": "backend-api",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [8000],
+  "postCreateCommand": "cd backend && pip install -r requirements.txt && python manage.py migrate",
   "customizations": {
     "vscode": {
       "extensions": [
         "batisteo.vscode-django",
         "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "redhat.vscode-yaml"
       ]
     }
-  },
-  "forwardPorts": [
-    8000
-  ]
+  }
 }
