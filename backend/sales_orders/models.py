@@ -66,7 +66,7 @@ class SalesOrder(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     order_date = models.DateField(auto_now_add=True)
     delivery_date = models.DateField()
-    total_amount = models.PositiveIntegerField()
+    total_amount = models.PositiveIntegerField(default=0)
     order_discount = models.PositiveIntegerField(default=0)
     status = models.CharField(choices=STATUS_CHOICES,
                               default=STATUS_CHOICES[0][0])
@@ -76,7 +76,8 @@ class SalesOrder(models.Model):
 
 
 class SalesOrderItem(models.Model):
-    sales_order = models.ForeignKey(SalesOrder, on_delete=models.CASCADE)
+    sales_order = models.ForeignKey(
+        SalesOrder, on_delete=models.CASCADE, related_name="sales_order_items")
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     unit_price = models.PositiveIntegerField()
